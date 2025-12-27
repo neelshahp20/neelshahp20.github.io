@@ -735,6 +735,7 @@
                                         I’m a Data Engineer with over 10 years of experience delivering data-driven insights and scalable reporting solutions. I have hands-on expertise in SQL, Power BI, SSRS, Snowflake, Python, and cloud platforms including Azure and GCP. I specialize in building production-ready dashboards, automating end-to-end ETL pipelines, and translating complex business requirements into actionable analytics. I’m Microsoft-certified and have been recognized with multiple innovation awards for delivering high-impact analytics solutions in healthcare technology.
                                     </p>
                                     <a href="https://www.linkedin.com/in/neelshah3/" class="btn-primary">Let’s Connect</a>
+									<a href="resume.pdf" id="resumeBtn" class="btn-primary">Download Resume</a>
                                     <div class="hero-socials">
                                         <a href="https://www.linkedin.com/in/neelshah3/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                                         <a href="mailto:neel.shahp20@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>
@@ -1527,6 +1528,34 @@
     events.forEach((event) => {
         document.addEventListener(event, lazyloadRunObserver);
     });
+
+	/* Resume download robust behavior */
+  (function(){
+    const url = 'resume.pdf';
+    const btn = document.getElementById('downloadResume') || document.getElementById('resumeBtn');
+    async function tryFetch(u){
+      try {
+        const r = await fetch(u, {method:'GET'});
+        if (!r.ok) throw new Error('status ' + r.status);
+        const b = await r.blob();
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(b);
+        link.download = 'Neel_Shah_Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        return true;
+      } catch(e){
+        return false;
+      }
+    }
+    async function fetchAndDownload(){
+      if (await tryFetch(url)) return;
+      alert('Resume not found on site path. Attempting to open direct link.');
+      window.open(url, '_blank');
+    }
+    btn && btn.addEventListener('click', (e)=> { e.preventDefault(); fetchAndDownload(); });
+  })();
 </script>
 <script type="text/javascript" src="https://harpalsinhvaghela.com/wp-content/plugins/codeefly-addon/assets/lib/gsap.min.js?ver=6.8.3" id="gsap-js"></script>
 <script type="text/javascript" src="https://harpalsinhvaghela.com/wp-content/plugins/codeefly-addon/assets/lib/ScrollSmoother.min.js?ver=6.8.3" id="scrollSmoother-js"></script>
@@ -1584,4 +1613,5 @@
 </html>
 
 <!-- Page cached by LiteSpeed Cache 7.6.2 on 2025-12-24 17:32:42 -->
+
 
